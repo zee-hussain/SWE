@@ -12,7 +12,8 @@
 
 <body>
     <form method="post" enctype="multipart/form-data">
-        <input type="file" accept="image/*" onchange="loadFile(event)">
+        <input type="file" accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="loadFile(event)">
         <img id="output">
         <input type="submit" value="Upload File" name="submit">
     </form>
