@@ -11,9 +11,9 @@
 			{
 				if ($file_name != '.' && $file_name != '..')
 				{
-					echo $file_name."<br>";
+					// echo $file_name."<br>";
 					// echo "<a href=pdf_server.php?file=pdffilename>Final Exam</a><br>";
-					// // echo "<a href='".$file_name."' download></a>";
+					echo "<a href='../Upload/uploads/".$file_name."' download>".$file_name."</a><br>";
 				}
 				
 			}
