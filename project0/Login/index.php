@@ -18,8 +18,6 @@
       <input type="password" class="form-control" name="password" id="password" placeholder="Password" required> 
       <input class="btn btn-lg btn-primary btn-block" type="submit" name="Login" value="Login">
       <br>
-      <p class="text-muted text-center mb-0">Guest Username: guest</p>
-      <p class="text-muted text-center mb-0">Guest Password: guest</p>
     <br>
     </form>
 </div>

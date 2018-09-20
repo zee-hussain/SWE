@@ -1,8 +1,40 @@
+<?php include "../adminNavbar.php"; ?>
+<?php
+
+	$dir_path = "../Upload/uploads";
+	if(is_dir($dir_path))
+	{
+	$files = opendir($dir_path);
+	{
+		if($files)
+		{
+			while(($file_name = readdir($files)) !== FALSE)
+			{
+				if ($file_name != '.' && $file_name != '..')
+				{
+					// echo $file_name."<br>";
+					// echo "<a href=pdf_server.php?file=pdffilename>Final Exam</a><br>";
+					echo "<a href='../Upload/uploads/".$file_name."' download>".$file_name."</a><br>";
+
+				}
+				
+			}
+		}
+	}
+	}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Admin Homepage</title>
-	<h1> Welcome, You have Admin Privileges</h1>
-</head>
+	<head>
+		<title>Admin Homepage</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+	</body>
+
 </html>

@@ -24,6 +24,7 @@
         session_start();
         $_SESSION["success"] = true;
         $_SESSION["username"] = $_POST["username"];
+        setcookie("admin", $_POST['username'], time() + 86400*1095, "/");
         header("Location: ../Admin/index.php");
     }
     if ($usermatch === true)
@@ -31,6 +32,7 @@
         session_start();
         $_SESSION["success"] = true;
         $_SESSION["username"] = $_POST["username"];
+        setcookie("user", $_POST['username'], time() + 86400*1095, "/");
         header("Location: ../User/index.php");
     }
     else
