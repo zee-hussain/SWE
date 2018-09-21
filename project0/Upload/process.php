@@ -2,6 +2,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['files'])) {
+        
         $errors = [];
         $path = 'uploads/';
         $extensions = ['pdf', 'doc', 'docx'];
