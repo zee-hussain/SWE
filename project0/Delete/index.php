@@ -22,7 +22,7 @@
 				{
 					// echo $file_name."<br>";
 					// echo "<a href=pdf_server.php?file=pdffilename>Final Exam</a><br>";
-					echo "<a href='../Upload/uploads/".$file_name."' download>".$file_name."</a> <a href='delete.php?name=$file_name'>Delete</a><br>";
+					echo "<a href='../Upload/uploads/".$file_name."' download>".$file_name."</a> <a href='delete.php?name=$file_name' type= 'button' class='btn btn-danger' >Delete</a><br>";
 
 				}
 				
