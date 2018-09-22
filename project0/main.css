@@ -1,5 +1,5 @@
-body {
-	background: #eee !important;	
+.body {
+	background: #ffffff;	
 }
 
 .wrapper {	
@@ -91,7 +91,7 @@ a:hover.text-burnt-orange {
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
-  background-color: #fff;
+  background-color: #FFFFFF;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -144,3 +144,4 @@ a:hover.text-burnt-orange {
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
 }
+
