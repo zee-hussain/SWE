@@ -9,6 +9,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from os.path import basename
 import xlsxwriter
+from tkinter import *
 
 account_sid = 'ACffd2fce359a976ec9b7eb4544bb503fd'
 auth_token = '8907db481180c1ff11a26faaba44746e'
@@ -20,9 +21,9 @@ email = ''
 spendLimit = ''
 loginSuccess = False
 
-def register():
+def register1():
     global username
-    username = input('Please enter your desired username: ')
+    username = username_value.get()
     file = open('passwd.txt', 'r')
     taken = False
     userMatch = []
@@ -34,16 +35,16 @@ def register():
             break
     if (taken == True):
         print("Sorry, that username has been taken. Please try again")
-        register()
+        
     else:
         global loginSuccess
         global phoneNum
         global email
         global spendLimit
-        password = input('Please enter your desired password: ')
-        phoneNum = input('Please enter your phone number: ')
-        email = input('Please enter your email address: ')
-        spendLimit = input("Please enter your monthly spending limit: ")
+        password = password_value.get()
+        phoneNum = phonenumber_value.get()
+        email = email_value.get()
+        spendLimit = limit_value.get()
         file = open('passwd.txt', 'a')
         file.write(username)
         file.write(":")
@@ -63,7 +64,7 @@ def register():
         workbook = xlsxwriter.Workbook(username + '.xlsx')
         worksheet = workbook.add_worksheet()
         workbook.close()
-        mainMenu()
+        #mainMenu()
 
 def login():
     global loginSuccess
@@ -72,8 +73,8 @@ def login():
     global spendLimit
     global username
     print("Please Log In")
-    username = input("Please enter your username: ")
-    password = input("Please enter your password: ")
+    username = loginUsername_value.get()
+    password = loginPassword_value.get()
     login_info = []
     loginSuccess = False
     for line in open('passwd.txt', 'r'):
@@ -86,16 +87,16 @@ def login():
             email = login_info[3]
             spendLimit = login_info[4]
             loginSuccess = True
-            mainMenu()
+            #mainMenu()
     if loginSuccess == False:
         print("Incorrect credentials. Please try again.")
         login()
 
 
 def recordExpense():
-    item = input("Please enter the item you purchased: ")
-    price = input("Please enter the cost of " + item + ": ")
-    date = input("Please enter the date of purchase (MM-DD-YY): ")
+    item = item_value.get()
+    price = price_value.get()
+    date = date_value.get()
     wb = openpyxl.load_workbook(username + ".xlsx")
     ws = wb.worksheets[0]
     dateHeader = ws.cell(row=1, column=1)
@@ -180,7 +181,7 @@ def viewExpenses():
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):
         print(df)
         print("\n")
-    mainMenu()
+    #mainMenu()
 
 def mainMenu():
     global loginSuccess
@@ -219,5 +220,136 @@ def mainMenu():
 
 def main():
     mainMenu()
+def checkIsInteger(x):
+    try:
+        int(x)
+        return True
+    except ValueError:
+        return False
 
-main()
+def checkTitleNoInt(x):
+    testString = str(x)
+    for i in x:
+        if i.isdigit() == True:
+            return False
+            break
+    else:
+        i+=1
+def recordExpenseWindow():
+    recordExpense = Toplevel()
+    recordExpense.geometry("500x500")
+    Label(recordExpense, text = "Name of Item: ").grid(row = 0)
+    Label(recordExpense, text = "Price of item: ").grid(row = 1)
+    Label(recordExpense, text = "Date of purchase: ").grid(row = 2)
+    #when you create the textbox, you need to define the variable to link it to in order to retrieve it
+    item = Entry(recordExpense, textvariable = item_value)
+    price = Entry(recordExpense, textvariable = price_value)
+    date = Entry(recordExpense, textvariable = date_value)
+
+    item.grid(row = 0, column = 1)
+    price.grid(row = 1, column = 1)
+    date.grid(row = 2, column = 1)
+
+    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = checkIsInteger(str(price_value.get())) and recordExpense and quit)
+    saveButton.grid(row = 3, column = 1)
+    
+    recordExpense.mainloop()
+
+def close_window():
+    window.destroy()
+def registerWindow():
+    register = Toplevel()
+    register.geometry("500x500")
+
+    
+
+    Label(register, text = "Username: ").grid(row = 0)
+    username = Entry(register, textvariable = username_value)
+    username.grid(row = 0, column = 1)
+
+    Label(register, text = "Password: ").grid(row = 1)
+    password = Entry(register, textvariable = password_value)
+    password.grid(row = 1, column = 1)
+
+    Label(register, text = "Phone Number: ").grid(row = 2)
+    phonenumber = Entry(register, textvariable = phonenumber_value)
+    phonenumber.grid(row = 2, column = 1)
+
+    Label(register, text = "Email: ").grid(row = 3)
+    email = Entry(register, textvariable = email_value)
+    email.grid(row = 3, column = 1)
+
+    Label(register, text = "Spending limit: ").grid(row = 4)
+    limit = Entry(register, textvariable = limit_value)
+    limit.grid(row = 4, column = 1)
+
+    submitButton = Button(register, text = "Job's Done", fg = "Blue", bg = "Grey", command = register1)
+    submitButton.grid(row = 5, column = 1)
+
+    register.mainloop()
+
+def loginWindow():
+    login = Toplevel()
+    login.geometry("200x200")
+
+    Label(login, text = "Username: ").grid(row = 0)
+    username = Entry(login, textvariable = loginUsername_value)
+    username.grid(row = 0, column = 1)
+
+    Label(login, text = "Password: ").grid(row = 1)
+    password = Entry(login, textvariable = loginPassword_value)
+    password.grid(row = 1, column = 1)
+
+
+#creates a blank window
+#every GUI has to have this and mainloop
+mainWindow = Tk()
+#sets size of window at start up
+mainWindow.geometry("500x500")
+#makes window unable to be resized by users
+mainWindow.resizable(width = False, height = False)
+#to populate the window with a label, create using Label(location, x)
+#pack(fill =x) button will stretch however long window is stretched (left and right)
+#replace above with y, will stretch height wise
+#fill = BOTH, expand = True, will dynamically change both x and y
+appTitle = Label(text = "Expense Calculator", bg = "Grey", fg = "White")
+#when you don't care where the object is placed, but you just want it display in window
+appTitle.pack(fill = BOTH, expand = True)
+#creating containers to place windows or widgets or objects in seperate areas of the entire screen  
+topFrame = Frame(mainWindow)
+topFrame.pack(side = TOP)
+
+bottomFrame = Frame(mainWindow)
+bottomFrame.pack(side = BOTTOM)
+
+#defining variables
+item_value = StringVar()
+price_value = StringVar()
+date_value = StringVar()
+username_value = StringVar()
+password_value = StringVar()
+phonenumber_value = StringVar()
+email_value = StringVar()
+limit_value = StringVar()
+loginUsername_value = StringVar()
+loginPassword_value = StringVar()
+
+
+#creation of button: Button(location, text, fg = (text color)) or bg = background color
+quitButton = Button(text = "Quit", fg = "blue", bg = "Grey", command = quit)
+recordButton = Button(text = "Record Expenses", fg = "red",bg= "Grey", command = recordExpenseWindow)
+displayButton = Button(text = "Display Expenses", fg = "red",bg= "Grey", command = viewExpenses)
+loginButton = Button(text = "Login", fg = "red", bg = "Grey", command = loginWindow)
+registerButton = Button(text = "Register", fg = "red", bg = "Grey", command = registerWindow)
+#by default, pack stacks objects on top of one another. 
+#define side = to specify where on window you want
+
+recordButton.pack(in_ = topFrame, side = LEFT)
+quitButton.pack(in_ = topFrame, side = RIGHT)
+displayButton.pack(in_ = topFrame, side = LEFT)
+loginButton.pack(in_ = bottomFrame, side = LEFT)
+registerButton.pack(in_ = bottomFrame, side = RIGHT) 
+
+#place window in infinite loop, keeps it displayed, until you press close
+mainWindow.mainloop()
+
