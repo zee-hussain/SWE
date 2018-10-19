@@ -66,7 +66,7 @@ def register1():
         workbook.close()
         #mainMenu()
 
-def login():
+def login1():
     global loginSuccess
     global phoneNum
     global email
@@ -90,11 +90,12 @@ def login():
             #mainMenu()
     if loginSuccess == False:
         print("Incorrect credentials. Please try again.")
-        login()
+        login1()
 
 
-def recordExpense():
+def recordExpense1():
     item = item_value.get()
+    print(item)
     price = price_value.get()
     date = date_value.get()
     wb = openpyxl.load_workbook(username + ".xlsx")
@@ -112,7 +113,8 @@ def recordExpense():
     dateRow.value = str(date)
     itemRow.value = str(item)
     costRow.value = str(price)
-    done = False
+    wb.save(username + ".xlsx")
+    '''done = False
     while (done == False):
         response = input("Your purchase has been recorded. Record another purchase? (Y/N): ")
         if (response == 'Y'):
@@ -127,7 +129,7 @@ def recordExpense():
         else:
             print("please enter a valid response.")
             done = False
-
+'''
 def sendEmail(send_from: str, subject: str, text: str, send_to: list, files=None):
 
     user = 'zee_hussain@utexas.edu'
@@ -250,7 +252,7 @@ def recordExpenseWindow():
     price.grid(row = 1, column = 1)
     date.grid(row = 2, column = 1)
 
-    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = checkIsInteger(str(price_value.get())) and recordExpense and quit)
+    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = recordExpense1)
     saveButton.grid(row = 3, column = 1)
     
     recordExpense.mainloop()
@@ -299,6 +301,9 @@ def loginWindow():
     Label(login, text = "Password: ").grid(row = 1)
     password = Entry(login, textvariable = loginPassword_value)
     password.grid(row = 1, column = 1)
+    submitButton = Button(login, text = "Job's Done", fg = "Blue", bg = "Grey", command = login1)
+    submitButton.grid(row = 2, column = 1)
+    login.mainloop()
 
 
 #creates a blank window
