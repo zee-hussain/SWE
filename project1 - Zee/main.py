@@ -10,6 +10,7 @@ from email.mime.application import MIMEApplication
 from os.path import basename
 import xlsxwriter
 from tkinter import *
+from tkinter import messagebox
 
 account_sid = 'ACffd2fce359a976ec9b7eb4544bb503fd'
 auth_token = '8907db481180c1ff11a26faaba44746e'
@@ -34,7 +35,8 @@ def register1():
             taken = True
             break
     if (taken == True):
-        print("Sorry, that username has been taken. Please try again")
+    	messagebox.showerror("Username Taken", "The username has been taken, please try again.")
+        #print("Sorry, that username has been taken. Please try again")
         
     else:
         global loginSuccess
@@ -89,8 +91,8 @@ def login1():
             loginSuccess = True
             #mainMenu()
     if loginSuccess == False:
-        print("Incorrect credentials. Please try again.")
-        login1()
+        messagebox.showerror("Invalid Login", "Incorrect credentials. Please try again.")
+        loginWindow()
 
 
 def recordExpense1():
@@ -114,6 +116,7 @@ def recordExpense1():
     itemRow.value = str(item)
     costRow.value = str(price)
     wb.save(username + ".xlsx")
+    messagebox.showinfo("Success", "Expenses recorded.")
     '''done = False
     while (done == False):
         response = input("Your purchase has been recorded. Record another purchase? (Y/N): ")
