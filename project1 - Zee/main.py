@@ -60,29 +60,30 @@ def register():
         mainMenu()
 
 def login():
+    global loginSuccess
+    global phoneNum
+    global email
+    global spendLimit
     print("Please Log In")
     username = input("Please enter your username: ")
     password = input("Please enter your password: ")
     login_info = []
+    loginSuccess = False
     for line in open('passwd.txt', 'r'):
         login_info = line.split()
-        print(line)
-        print(login_info)
         if (username == login_info[0] and password == login_info[1]):
             print("You are now logged in")
             print("\n")
-            global loginSuccess
-            global phoneNum
-            global email
-            global spendLimit
+
             phoneNum = login_info[2]
             email = login_info[3]
             spendLimit = login_info[4]
             loginSuccess = True
             mainMenu()
-        else:
-            print("Incorrect credentials. Please try again.")
-            login()
+    if loginSuccess == False:
+        print("Incorrect credentials. Please try again.")
+        login()
+
 
 def recordExpense():
     item = input("Please enter the item you purchased: ")
