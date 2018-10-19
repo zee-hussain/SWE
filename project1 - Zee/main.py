@@ -22,8 +22,10 @@ def register():
     username = input('Please enter your desired username: ')
     file = open('passwd.txt', 'r')
     taken = False
+    userMatch = []
     for line in file:
         userMatch = line.split()
+        print(userMatch)
         if (userMatch[0] == username):
             taken = True
             break
@@ -51,7 +53,6 @@ def register():
         file.write(spendLimit)
         file.write("\n")
         file.close()
-        loginSuccess = True
         phoneNum = userMatch[2]
         email = userMatch[3]
         spendLimit = userMatch[4]
@@ -62,8 +63,11 @@ def login():
     print("Please Log In")
     username = input("Please enter your username: ")
     password = input("Please enter your password: ")
-    for line in open('passwd.txt', 'r').read():
+    login_info = []
+    for line in open('passwd.txt', 'r'):
         login_info = line.split()
+        print(line)
+        print(login_info)
         if (username == login_info[0] and password == login_info[1]):
             print("You are now logged in")
             print("\n")
@@ -71,10 +75,10 @@ def login():
             global phoneNum
             global email
             global spendLimit
-            loginSuccess = True
             phoneNum = login_info[2]
             email = login_info[3]
             spendLimit = login_info[4]
+            loginSuccess = True
             mainMenu()
         else:
             print("Incorrect credentials. Please try again.")
