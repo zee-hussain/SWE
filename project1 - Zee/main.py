@@ -182,7 +182,7 @@ def mainMenu():
         username = 'zee_hussain@utexas.edu'
         sendEmail(send_from=username, subject="Monthly Expense Report",
                   text="Dear " + username + ",\n\nHere is your monthly expense report.\n\nBest,\n\nExpenseBot",
-                  send_to=[email], files=[r"C:\Users\zee_h\PycharmProjects\SWE\Book1.xlsx"])
+                  send_to=[email], files=[r"Book1.xlsx"])
         sendText()
         optionSelect = input()
         if optionSelect == '1':
