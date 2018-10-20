@@ -82,8 +82,8 @@ def login1():
     for line in open('passwd.txt', 'r'):
         login_info = line.split(':')
         if (username == login_info[0] and password == login_info[1]):
-            print("You are now logged in")
-            print("\n")
+            messagebox.showinfo("Success", "Hello " + username + ", you are now successfully logged in.")
+            
             username = login_info[0]
             phoneNum = login_info[2]
             email = login_info[3]
@@ -256,7 +256,12 @@ def recordExpenseWindow():
     date.grid(row = 2, column = 1)
 
     saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = recordExpense1)
-    saveButton.grid(row = 3, column = 1)
+    saveButton.grid(row = 5, column = 2)
+
+    exitButton = Button(recordExpense, text = "Exit", command = recordExpense.destroy)
+    exitButton.grid(row = 5, column = 3)
+
+    
     
     recordExpense.mainloop()
 
