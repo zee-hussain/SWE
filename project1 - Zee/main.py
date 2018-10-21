@@ -22,6 +22,11 @@ email = ''
 spendLimit = ''
 loginSuccess = False
 
+def resetValues():
+    price.delete(0,END)
+    item.delete(0,END)
+    date.delete(0,END)
+
 def register1():
     global username
     username = username_value.get()
@@ -240,6 +245,7 @@ def checkTitleNoInt(x):
             break
     else:
         i+=1
+
 def recordExpenseWindow():
     recordExpense = Toplevel()
     recordExpense.geometry("500x500")
@@ -251,27 +257,32 @@ def recordExpenseWindow():
     price = Entry(recordExpense, textvariable = price_value)
     date = Entry(recordExpense, textvariable = date_value)
 
+    item.config(state = NORMAL)
+    price.config(state = NORMAL)
     item.grid(row = 0, column = 1)
     price.grid(row = 1, column = 1)
     date.grid(row = 2, column = 1)
-
-    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = recordExpense1)
-    saveButton.grid(row = 5, column = 2)
-
-    exitButton = Button(recordExpense, text = "Exit", command = recordExpense.destroy)
-    exitButton.grid(row = 5, column = 3)
-
     
+    dateButton = Button(recordExpense, text = "", command = date.delete(0,END))
+    dateButton.grid(row = 5, column = 2)
+
+    itemButton = Button(recordExpense, text = "", command = item.delete(0,END))
+    itemButton.grid(row = 5, column = 2)
+
+    priceButton = Button(recordExpense, text = "", command = price.delete(0,END))
+    priceButton.grid(row = 5, column = 2)
+
+    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = recordExpense1 and recordExpense.destroy)
+    saveButton.grid(row = 5, column = 2)
     
     recordExpense.mainloop()
 
 def close_window():
     window.destroy()
+
 def registerWindow():
     register = Toplevel()
     register.geometry("500x500")
-
-    
 
     Label(register, text = "Username: ").grid(row = 0)
     username = Entry(register, textvariable = username_value)
@@ -325,15 +336,15 @@ mainWindow.resizable(width = False, height = False)
 #pack(fill =x) button will stretch however long window is stretched (left and right)
 #replace above with y, will stretch height wise
 #fill = BOTH, expand = True, will dynamically change both x and y
-appTitle = Label(text = "Expense Calculator", bg = "Grey", fg = "White")
+appTitle = Label(text = "Expense Calculator", bg = "Grey", fg = "White", height = 5, width = 20)
 #when you don't care where the object is placed, but you just want it display in window
-appTitle.pack(fill = BOTH, expand = True)
+appTitle.grid(row = 0, column= 2)
 #creating containers to place windows or widgets or objects in seperate areas of the entire screen  
-topFrame = Frame(mainWindow)
+"""topFrame = Frame(mainWindow)
 topFrame.pack(side = TOP)
 
 bottomFrame = Frame(mainWindow)
-bottomFrame.pack(side = BOTTOM)
+bottomFrame.pack(side = BOTTOM)"""
 
 #defining variables
 item_value = StringVar()
@@ -349,19 +360,19 @@ loginPassword_value = StringVar()
 
 
 #creation of button: Button(location, text, fg = (text color)) or bg = background color
-quitButton = Button(text = "Quit", fg = "blue", bg = "Grey", command = quit)
-recordButton = Button(text = "Record Expenses", fg = "red",bg= "Grey", command = recordExpenseWindow)
-displayButton = Button(text = "Display Expenses", fg = "red",bg= "Grey", command = viewExpenses)
-loginButton = Button(text = "Login", fg = "red", bg = "Grey", command = loginWindow)
-registerButton = Button(text = "Register", fg = "red", bg = "Grey", command = registerWindow)
+quitButton = Button(text = "Quit", fg = "blue", bg = "Grey", command = quit, padx = 30, pady = 10)
+recordButton = Button(text = "Record Expenses", fg = "red",bg= "Grey", command = recordExpenseWindow, padx = 30, pady = 10)
+displayButton = Button(text = "Display Expenses", fg = "red",bg= "Grey", command = viewExpenses, padx = 30, pady = 10)
+loginButton = Button(text = "Login", fg = "red", bg = "Grey", command = loginWindow, padx = 30, pady = 10)
+registerButton = Button(text = "Register", fg = "red", bg = "Grey", command = registerWindow, padx = 30, pady = 10)
 #by default, pack stacks objects on top of one another. 
 #define side = to specify where on window you want
 
-recordButton.pack(in_ = topFrame, side = LEFT)
-quitButton.pack(in_ = topFrame, side = RIGHT)
-displayButton.pack(in_ = topFrame, side = LEFT)
-loginButton.pack(in_ = bottomFrame, side = LEFT)
-registerButton.pack(in_ = bottomFrame, side = RIGHT) 
+recordButton.grid(row = 1, column = 1)
+quitButton.grid(row = 1, column = 2)
+displayButton.grid(row = 1, column = 3)
+loginButton.grid(row = 2, column = 1)
+registerButton.grid(row = 2, column = 3)
 
 #place window in infinite loop, keeps it displayed, until you press close
 mainWindow.mainloop()
