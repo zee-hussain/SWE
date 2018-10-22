@@ -11,6 +11,8 @@ from os.path import basename
 import xlsxwriter
 from tkinter import *
 from tkinter import messagebox
+from pandastable import Table, TableModel
+
 
 account_sid = 'ACffd2fce359a976ec9b7eb4544bb503fd'
 auth_token = '8907db481180c1ff11a26faaba44746e'
@@ -21,6 +23,7 @@ phoneNum = ''
 email = ''
 spendLimit = ''
 loginSuccess = False
+
 
 def resetValues():
     price.delete(0,END)
@@ -187,11 +190,18 @@ def sendText():
         )
 
 def viewExpenses():
+    viewExpense = Toplevel()
+    f=Frame(viewExpense)
+    f.pack(fill=BOTH, expand=1)
     df = pd.read_excel(username + '.xlsx', index=False)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print(df)
-        print("\n")
+    #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+     #   print(df)
+      #  print("\n")
+    table = pt = Table(f, dataframe=df,
+                                showtoolbar=True, showstatusbar=True)
+    pt.show()
     #mainMenu()
+    viewExpense.mainloop()
 
 def mainMenu():
     global loginSuccess
@@ -272,8 +282,11 @@ def recordExpenseWindow():
     priceButton = Button(recordExpense, text = "", command = price.delete(0,END))
     priceButton.grid(row = 5, column = 2)
 
-    saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = recordExpense1 and recordExpense.destroy)
+    saveButton = Button(recordExpense, text = "Save", fg = "Blue", bg = "Grey", command = recordExpense1)
     saveButton.grid(row = 5, column = 2)
+
+    saveButton = Button(recordExpense, text = "Exit", fg = "Blue", bg = "Grey", command = recordExpense.destroy)
+    saveButton.grid(row = 5, column = 3)
     
     recordExpense.mainloop()
 
@@ -304,7 +317,7 @@ def registerWindow():
     limit = Entry(register, textvariable = limit_value)
     limit.grid(row = 4, column = 1)
 
-    submitButton = Button(register, text = "Job's Done", fg = "Blue", bg = "Grey", command = register1)
+    submitButton = Button(register, text = "Save", fg = "Blue", bg = "Grey", command = register1)
     submitButton.grid(row = 5, column = 1)
 
     register.mainloop()
@@ -320,7 +333,7 @@ def loginWindow():
     Label(login, text = "Password: ").grid(row = 1)
     password = Entry(login, textvariable = loginPassword_value)
     password.grid(row = 1, column = 1)
-    submitButton = Button(login, text = "Job's Done", fg = "Blue", bg = "Grey", command = login1)
+    submitButton = Button(login, text = "Save", fg = "Blue", bg = "Grey", command = login1)
     submitButton.grid(row = 2, column = 1)
     login.mainloop()
 
