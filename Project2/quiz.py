@@ -2,6 +2,7 @@ from pandas import DataFrame
 import pandas as pd
 import time
 import random
+from random import shuffle
 
 def main():
 	#define Variables
@@ -24,25 +25,29 @@ def main():
 	#Decide who goes first
 	while ready == False: 
 		name = input("Enter your name: ")
-		playerList.append({name: name, "Score: ": 0})
+		playerList.append({"Name": name, "Score: ": 0})
 		book = input("Do you want to add anymore players? (y/n)")
 		if book == "y":
 			continue
 		else:
 			ready = True
-	print(playerList)
-	#randomize players so everyone gets a fair chance 
-	print(len(playerList))
+
+	#randomize players so everyone gets a fair chance
+	shuffle(playerList)
 	listLength = len(playerList)
 	#placeholder
 	beginning = 0
 	#goes through row by row reading questions
+
 	for questions in df['Questions']:
-		print(playerList[beginning],"it is your turn. Here is your question: ")
+
+
+		print(playerList[beginning]["Name"],"it is your turn. Here is your question: ")
 		print(questions)
 		#asks user to input their answer
-		userAnswer = input("Answer: ")
+		userAnswer = input("Answer: ").lower()
 		start = time.time()
+		end = 0
 		#Check if user answer matches question answer
 		if userAnswer == df['Answers'][placement]:
 			end = time.time()
@@ -69,25 +74,32 @@ def main():
 		else:
 			beginning = 0
 	print("Game Over.")
-	print("The final score are: ")
+	print("The final scores are: ")
 	for i in playerList:
-		print(playerList)
+
+		print(i["Name"], end ="")
+		print(":", i["Score: "])
 	#finding winner
 	highestScore = 0
 	winnerList = []
 	for j in range(0,len(playerList)):
 		if int(playerList[j]["Score: "]) > highestScore:
-			print(playerList[j]["Score: "])
 			winnerList.clear()
 			highestScore = int(playerList[j]["Score: "])
-			winnerList.append(playerList[j])
+			winnerList.append(playerList[j]["Name"])
 		elif int(playerList[j]["Score: "]) == highestScore:
-			print(playerList[j]["Score: "])
-			winnerList.append(playerList[j])
+			winnerList.append(playerList[j]["Name"])
 		else:
 			continue
 	if len(winnerList) > 1:
-		print("It was a tie between: ",winnerList)
+
+		print("It was a tie between: ",end= "")
+		count = 0
+		for i in winnerList: 
+			print(i, end = "")
+			if count < len(winnerList)-1:
+				print(" and ", end= "")
+				count += 1
 	else:
-		print("The winners is(are): ",winnerList)
+		print("The winner is: ",winnerList[0])
 main()
