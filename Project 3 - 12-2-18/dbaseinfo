@@ -1,0 +1,5 @@
+$host = "spring-2018.cs.utexas.edu";
+$user = "ncald";
+$pwd = "ra3pNnEmSl";
+$dbs = "cs329e_ncald";
+$port = "3306";

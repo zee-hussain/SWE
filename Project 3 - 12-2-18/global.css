@@ -1,0 +1,83 @@
+/* GLOBAL CSS */
+
+/* Color controls */
+.burnt-orange {
+    /* Sets background color of any element */
+    background-color: #cc5500;
+    color: white;
+} 
+.burnt-orange a, .burnt-orange a:hover, .burnt-orange a:visited {
+    /* This comes into effect automatically anytime there's a link inside a .burnt-orange element */
+    color: white;
+}
+.text-burnt-orange, a:hover.text-burnt-orange, a:visited.text-burnt-orange {
+    /* Sets any text to burnt-orange */
+    color: #cc5500 !important;
+}
+a:hover.text-burnt-orange {
+    text-decoration: underline;
+}
+
+.bg-aaa {
+    background-color: #aaa;
+}
+.bg-eee {
+    background-color: #eee;
+}
+
+/* Header */
+.form-control.focus-orange:focus {
+    border-color: #cc5500;
+    box-shadow: none;
+    outline: none;
+}
+
+
+/* <textarea> elements */
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.textarea:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.textarea::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+
+/* Set max width for whole container, so doesn't grow infinitely. To use, do this in HTML: <div class="container setmax"> */
+.container.setmax {
+    max-width: 720px;
+}
+.setmax-900 {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* VERTICAL CENTERING */
+.vertical-center-wrapper {
+    position: relative;
+}
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

@@ -1,0 +1,7 @@
+nav {
+    opacity: 0.8;
+}
+
+nav:hover {
+    opacity: 1;
+}
