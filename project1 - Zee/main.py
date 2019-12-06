@@ -143,8 +143,8 @@ def recordExpense1():
 '''
 def sendEmail(send_from: str, subject: str, text: str, send_to: list, files=None):
 
-    user = 'zee_hussain@utexas.edu'
-    password = '#Buttley4Lyfe'
+    user = ''
+    password = ''
 
     send_to= send_to
 
